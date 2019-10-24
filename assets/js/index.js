@@ -123,6 +123,7 @@ window.addEventListener('load', async () => {
   client = await Ae.Aepp()
 
   hackLength = await callStatic('getHackLength', []); 
+  
 
   for(let i = 1; i<= hackLength ; i++ ){
     const Hacks =  await callStatic('getHack', [i]);
@@ -136,11 +137,28 @@ window.addEventListener('load', async () => {
     HackArray.push({
         imageUrl : Hacks.imageUrl,
         name : Hacks.name, 
-        tutorial : Hacks.tutorial
+        tutorial : Hacks.tutorial,
+        numberOfLikes : 0,
         
 
      
   })
+
+  // Like a post
+  $(function(){
+    $(document).on('click', '.like-review', function(e) {
+      $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+      $(this).children('.fa-heart').addClass('animate-like');
+
+      update = HackArray.numberOfLikes + 1
+
+      HackArray.push({
+      
+          numberOfLikes : update
+      }) 
+      
+    });
+});
 }
   renderProduct();
   $("#loadings").hide();
@@ -169,13 +187,17 @@ $('#regButton').click(async function(){
         name : name,
         url : url,
         tutorial : tutorial,
+        numberOfLikes : 0
 
         
         
     })
     renderProduct();
+    location.reload(true);
     $("#loadings").hide();
     name.value =""
     url.value =  ""
     tutorial.value = ""
 });
+
+
