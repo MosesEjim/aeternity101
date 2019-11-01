@@ -161,7 +161,7 @@ window.addEventListener('load', async () => {
 });
 
 // Like a post
-$('#likeButton').click(async function () {
+$('.like-review').click(async function () {
   $("#loadings").show();
 
   // $(function () {
