@@ -72,7 +72,7 @@ payable contract LifeHack =
   
     
   
-    `; 
+    `;
 
 
 const contractAddress = 'ct_DJSE7tqUpCAuue6enDKKEmT84EM62KiXg4owdzR4CajwxcCqE';
@@ -82,38 +82,49 @@ var hackLength = 0;
 
 
 
-function renderProduct()
-{
-    HackArray = HackArray.sort(function(a,b){return b.Price - a.Price})
-    var template = $('#template').html();
-    
-    Mustache.parse(template);
-    var rendered = Mustache.render(template, {HackArray});
+function renderProduct() {
+  HackArray = HackArray.sort(function (a, b) {
+    return b.Price - a.Price
+  })
+  var template = $('#template').html();
 
-    
-  
+  Mustache.parse(template);
+  var rendered = Mustache.render(template, {
+    HackArray
+  });
 
-    $('#body').html(rendered);
-    console.log("for loop reached")
+
+
+
+  $('#body').html(rendered);
+  console.log("for loop reached")
 }
 //Create a asynchronous read call for our smart contract
 async function callStatic(func, args) {
   //Create a new contract instance that we can interact with
-  const contract = await client.getContractInstance(contractSource, {contractAddress});
+  const contract = await client.getContractInstance(contractSource, {
+    contractAddress
+  });
   //Make a call to get data of smart contract func, with specefied arguments
   console.log("Contract : ", contract)
-  const calledGet = await contract.call(func, args, {callStatic: true}).catch(e => console.error(e));
+  const calledGet = await contract.call(func, args, {
+    callStatic: true
+  }).catch(e => console.error(e));
   //Make another call to decode the data received in first call
-  console.log("Called get found: ",  calledGet)
+  console.log("Called get found: ", calledGet)
   const decodedGet = await calledGet.decode().catch(e => console.error(e));
   console.log("catching errors : ", decodedGet)
   return decodedGet;
 }
 
 async function contractCall(func, args, value) {
-  const contract = await client.getContractInstance(contractSource, {contractAddress});
+  const contract = await client.getContractInstance(contractSource, {
+    contractAddress
+  });
   //Make a call to write smart contract func, with aeon value input
-  const calledSet = await contract.call(func, args, {amount:value}).catch(e => console.error(e));
+  const calledSet = await contract.call(func, args, {
+    amount: value
+  }).catch(e => console.error(e));
 
   return calledSet;
 }
@@ -123,82 +134,87 @@ window.addEventListener('load', async () => {
 
   client = await Ae.Aepp()
 
-  hackLength = await callStatic('getHackLength', []); 
-  
+  hackLength = await callStatic('getHackLength', []);
 
-  for(let i = 1; i<= hackLength ; i++ ){
-    const Hacks =  await callStatic('getHack', [i]);
-    
+
+  for (let i = 1; i <= hackLength; i++) {
+    const Hacks = await callStatic('getHack', [i]);
+
     console.log("for loop reached", "pushing to array")
     console.log(Hacks.imageUrl)
     console.log(Hacks.name)
     console.log(Hacks.tutorial)
-    
+
 
     HackArray.push({
-        imageUrl : Hacks.imageUrl,
-        name : Hacks.name, 
-        tutorial : Hacks.tutorial,
-        numberOfLikes : 0,
-        
+      imageUrl: Hacks.imageUrl,
+      name: Hacks.name,
+      tutorial: Hacks.tutorial,
+      numberOfLikes: 0,
 
-     
-  })
 
-  // Like a post
-  $(function(){
-    $(document).on('click', '.like-review', function(e) {
-      $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
-      $(this).children('.fa-heart').addClass('animate-like');
 
-      update = HackArray.numberOfLikes + 1
+    })
 
-      HackArray.push({
-      
-          numberOfLikes : update
-      }) 
-      
+    // Like a post
+    $(function () {
+      $(document).on('click', '.like-review', function (e) {
+        $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+        $(this).children('.fa-heart').addClass('animate-like');
+        console.log("Just Clicked The like Button")
+
+
+
+        // const dataIndex = event.target.id
+        dataIndex = HackArray.length
+
+
+        await contractCall('likeLifeHack', [dataIndex], 0)
+
+        HackArray.push({
+
+          numberOfLikes: update
+        })
+
+      });
     });
-});
-}
+  }
   renderProduct();
   $("#loadings").hide();
 });
 
 
 
-$('#regButton').click(async function(){
+$('#regButton').click(async function () {
   $("#loadings").show();
 
-    var name =($('#name').val()),
-    
+  var name = ($('#name').val()),
+
     url = ($('#imageUrl').val()),
-   
+
     tutorial = ($('#lifeHack').val());
-    await contractCall('writeHack', [url,name,tutorial], 0)
-   
-    console.log(url)
-    console.log(name)
-    console.log(tutorial)
+  await contractCall('writeHack', [url, name, tutorial], 0)
 
-   
+  console.log(url)
+  console.log(name)
+  console.log(tutorial)
 
-    
-    HackArray.push({
-        name : name,
-        url : url,
-        tutorial : tutorial,
-        numberOfLikes : 0
 
-        
-        
-    })
-    renderProduct();
-    location.reload(true);
-    $("#loadings").hide();
-    name.value =""
-    url.value =  ""
-    tutorial.value = ""
+
+
+  HackArray.push({
+    name: name,
+    url: url,
+    tutorial: tutorial,
+    numberOfLikes: 0
+
+
+
+  })
+  renderProduct();
+  location.reload(true);
+  $("#loadings").hide();
+  name.value = ""
+  url.value = ""
+  tutorial.value = ""
 });
-
-

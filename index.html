@@ -84,7 +84,7 @@
 
 
         </div>
-        
+
         <footer>
             <div class="container">
                 <div class="row">
@@ -108,35 +108,27 @@
     </div>
     </footer>
 
+
     <script id="template" type="x-tmpl-mustache">
         {{#HackArray}}
-        <div class="row">
-                    <div>
-                      <div class="card">
-                          <div class = "header"><h2>{{name}}</h2></div>
-                        
-                        <h5>October, 2019</h5>
-                        <!-- <img src="{{imageUrl}}" height =100, width=100> -->
-                        <div><img src="{{imageUrl}}" height =300, width=350></a></div>
-                        <p>{{tutorial}}<p>
 
-                            <!-- <p>Number of Likes : {{numberOfLikes}}</p> -->
-                        
-                                <!-- LikeBtn.com BEGIN -->
-                                <div class="like-content">
-                                        <button class="btn-secondary like-review">
-                                                <i class="fa fa-heart" aria-hidden="true"></i> Like
-                                              </button>
-                                </div>
-                                <div class="like-container">
-                                    <p>Number of likes : {{numberOfLikes}}</p>
-            
-                                </div>
-                               
-                                <!-- LikeBtn.com END -->
-                      </div>
-                      
-                    </div>
+        <div>
+                <h2>{{name}}</h2>
+                <div><img src="{{imageUrl}}"></a></div>
+                                <p>{{tutorial}}<p>
+                                    <!-- LikeBtn.com BEGIN -->
+                                    <div class="like-content">
+                                            <button class="btn-secondary like-review">
+                                                    <i class="fa fa-heart" aria-hidden="true"></i> Like
+                                                  </button>
+                                    </div>
+                                    <div class="like-container">
+                                        <p>Number of likes : {{numberOfLikes}}</p>
+                
+                                    </div>
+        
+        
+            </div>
                     
                     {{/HackArray}}
 
