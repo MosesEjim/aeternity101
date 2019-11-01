@@ -1,5 +1,5 @@
 const contractSource = `
-contract LifeHack =
+payable contract LifeHack =
   
     
   record hackUser = 
@@ -14,13 +14,11 @@ contract LifeHack =
     
   record state = {
     hack : map(int, hackUser),
-    hackLength : int,
-    likeCount : int}
+    hackLength : int}
     
   entrypoint init() = { 
     hack = {},
-    hackLength = 0,
-    likeCount = 0}
+    hackLength = 0}
 
   
   entrypoint getHack(index : int) = 
@@ -38,7 +36,7 @@ contract LifeHack =
       name = name', 
       tutorial = tutorial',
       like = false,
-      likeCount = state.likeCount
+      likeCount = 0
       
       }
     let index = getHackLength() + 1
@@ -52,29 +50,32 @@ contract LifeHack =
   //returns number of likes
     
   entrypoint getlikeCount(index : int) = 
-    state.likeCount 
+    state.hack[index].likeCount
     
     //like a lifehack
     
   stateful entrypoint likeLifeHack(index : int) = 
     let product = getHack(index)
-    let addlike = getlikeCount(index : int) + 1
-    //let hackUser = {
-      //creatorAddress  = product.creatorAddress,
-      //imageUrl = product.imageUrl,
-      //name = product.name, 
-      //tutorial = product.tutorial,
-      //like = product.like,
-      //likeCount = product.likeCount+1}
-    put(state{likeCount = addlike})  
+    
+    let update = {
+      creatorAddress  = product.creatorAddress,
+      imageUrl = product.imageUrl,
+      name = product.name, 
+      tutorial = product.tutorial,
+      like = true,
+      likeCount = product.likeCount+1}
+    put(state{hack[index] = update})  
     "LIfe Hack has BEEN LIKED SUCCESSFULLY"
+    
+ 
+    
   
     
   
     `; 
 
 
-const contractAddress = 'ct_VbEoGN6kdTV3QyMPuDfkPgn794Bbc69gjgzwM6b8952nQrTeF';
+const contractAddress = 'ct_DJSE7tqUpCAuue6enDKKEmT84EM62KiXg4owdzR4CajwxcCqE';
 var HackArray = [];
 var client = null;
 var hackLength = 0;
