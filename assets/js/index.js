@@ -155,34 +155,48 @@ window.addEventListener('load', async () => {
 
 
     })
-
-    // Like a post
-    $(async function () {
-      $(document).on('click', '.like-review', function (e) {
-        $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
-        $(this).children('.fa-heart').addClass('animate-like');
-        console.log("Just Clicked The like Button")
-
-
-
-        // const dataIndex = event.target.id
-        dataIndex = HackArray.length
-
-
-        await contractCall('likeLifeHack', [dataIndex], 0)
-        update = await callStatic('getHack' [dataIndex]) 
-
-        HackArray.push({
-
-          numberOfLikes: update.likeCount
-        })
-
-      });
-    });
   }
   renderProduct();
   $("#loadings").hide();
 });
+
+// Like a post
+$('likeButton').click(async function () {
+  $("#loadings").show();
+
+  $(function () {
+    $(document).on('click', '.like-review', function (e) {
+      $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+      $(this).children('.fa-heart').addClass('animate-like');
+      console.log("Just Clicked The like Button")
+
+
+
+      // const dataIndex = event.target.id
+      dataIndex = HackArray.length
+
+
+
+
+      await contractCall('likeLifeHack', [dataIndex], 0)
+      update = await callStatic('getHack' [dataIndex])
+
+      HackArray.push({
+
+        numberOfLikes: update.likeCount
+      })
+
+    });
+  });
+  renderProduct();
+  $("#loadings").hide();
+});
+
+
+
+
+
+
 
 
 
