@@ -164,13 +164,13 @@ window.addEventListener('load', async () => {
 $('#likeButton').click(async function () {
   $("#loadings").show();
 
-  $(function () {
-    $(document).on('click', '.like-review', function (e) {
-      $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
-      $(this).children('.fa-heart').addClass('animate-like');
-      console.log("Just Clicked The like Button")
-    });
-  });
+  // $(function () {
+  //   $(document).on('click', '.like-review', function (e) {
+  //     $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
+  //     $(this).children('.fa-heart').addClass('animate-like');
+  //     console.log("Just Clicked The like Button")
+  //   });
+  // });
 
 
   console.log("Just Clicked The like Button")
