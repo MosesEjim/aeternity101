@@ -182,7 +182,7 @@ $("#body").on("click", ".like-review", async function (event) {
 
 
       await contractCall('likeLifeHack', [dataIndex], 0)
-      update = await callStatic('getHack' [dataIndex])
+      update = await callStatic('getHack', [dataIndex])
 
       HackArray.push({
 
