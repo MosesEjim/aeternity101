@@ -169,6 +169,8 @@ $('likeButton').click(async function () {
       $(this).html('<i class="fa fa-heart" aria-hidden="true"></i> You liked this');
       $(this).children('.fa-heart').addClass('animate-like');
       console.log("Just Clicked The like Button")
+    });
+  });
 
 
 
@@ -186,8 +188,8 @@ $('likeButton').click(async function () {
         numberOfLikes: update.likeCount
       })
 
-    });
-  });
+    
+  
   renderProduct();
   $("#loadings").hide();
 });
