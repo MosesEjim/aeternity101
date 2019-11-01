@@ -150,7 +150,7 @@ window.addEventListener('load', async () => {
       imageUrl: Hacks.imageUrl,
       name: Hacks.name,
       tutorial: Hacks.tutorial,
-      numberOfLikes: 0,
+      numberOfLikes: Hacks.likeCount,
 
 
 
