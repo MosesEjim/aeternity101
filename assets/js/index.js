@@ -161,7 +161,7 @@ window.addEventListener('load', async () => {
 });
 
 // Like a post
-$('likeButton').click(async function () {
+$('#likeButton').click(async function () {
   $("#loadings").show();
 
   $(function () {
@@ -173,7 +173,7 @@ $('likeButton').click(async function () {
   });
 
 
-
+  console.log("Just Clicked The like Button")
       // const dataIndex = event.target.id
       dataIndex = HackArray.length
 
