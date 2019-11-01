@@ -170,10 +170,11 @@ window.addEventListener('load', async () => {
 
 
         await contractCall('likeLifeHack', [dataIndex], 0)
+        update = await callStatic('getHack' [dataIndex]) 
 
         HackArray.push({
 
-          numberOfLikes: update
+          numberOfLikes: update.likeCount
         })
 
       });
